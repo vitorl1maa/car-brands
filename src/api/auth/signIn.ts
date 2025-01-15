@@ -7,7 +7,7 @@ interface SignInProps {
 
 export async function authSignIn({ user, password }: SignInProps) {
   try {
-    const response = await loginApi.post("https://test-api-y04b.onrender.com/signIn", {
+    const response = await loginApi.post("/signIn", {
       user,
       password,
     });
