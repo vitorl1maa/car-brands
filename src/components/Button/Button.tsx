@@ -8,11 +8,12 @@ const Button = ({
   width,
   color,
   textColor,
+  disabled,
   ...rest
 }: ButtonPropsDefault) => {
   return (
     <View>
-      <ButtonField width={width} color={color} {...rest}>
+      <ButtonField width={width} color={color} disabled={disabled} {...rest}>
         <TextButton textColor={textColor}>{text}</TextButton>
       </ButtonField>
     </View>

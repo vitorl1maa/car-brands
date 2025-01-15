@@ -4,7 +4,8 @@ const theme = {
     secondary: "#ffff",
     pistache: "#c0e863",
     gray: "#303030",
-    softGray: "#686868"
+    softGray: "#686868",
+    disabled: "#d2f287"
   },
   fonts: {
     light: "OpenSans_300Light",

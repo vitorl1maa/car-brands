@@ -3,12 +3,14 @@ import React, { useEffect, useState } from "react";
 import Button from "../../../components/Button/Button";
 import Input from "../../../components/Input/Input";
 import { Eye, EyeOff, User } from "lucide-react-native";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { Container, ErrorText } from "./styled";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { LoginScreenNavigationProp } from "../../../@types/routes";
 import { Controller, useForm } from "react-hook-form";
 import { useAuthContext } from "../../../context/AuthContext";
+import Loading from "../../../components/Loading/Loading";
+import { useLoading } from "../../../hook/useLoading";
 interface FormData {
   user: string;
   password: string;
@@ -18,6 +20,7 @@ const FormLogin = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigation = useNavigation<LoginScreenNavigationProp>();
   const { isSignedIn, signIn, errorMessage } = useAuthContext();
+  const { loading, setLoading } = useLoading();
   const {
     control,
     handleSubmit,
@@ -26,6 +29,7 @@ const FormLogin = () => {
 
   const handleLogin = async (data: FormData) => {
     try {
+      setLoading(true);
       const { user, password } = data;
       const success = await signIn(user, password);
 
@@ -33,7 +37,11 @@ const FormLogin = () => {
         navigation.replace("Home");
       } else {
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -86,7 +94,11 @@ const FormLogin = () => {
         {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
       </View>
 
-      <Button text="Entrar" onPress={handleSubmit(handleLogin)} />
+      <Button
+        text={loading ? <Loading /> : "Entrar"}
+        onPress={handleSubmit(handleLogin)}
+        disabled={loading}
+      />
     </Container>
   );
 };

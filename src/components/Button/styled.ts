@@ -8,7 +8,8 @@ export const ButtonField = styled.TouchableOpacity<ButtonPropsDefault>`
   min-width: ${(props: ButtonPropsDefault) => props.width || "100%"};
   height: 50px;
   border-radius: 10px;
-  background-color: ${(props: ButtonPropsDefault) => props.color || theme.colors.pistache};
+  background-color: ${(props: ButtonPropsDefault) =>
+    props.disabled ? theme.colors.disabled : props.color || theme.colors.pistache};
   justify-content: center;
   align-items: center;
   
