@@ -9,6 +9,7 @@ import { getCars } from "../../api/getCars/getCars";
 import { useLoading } from "../../hook/useLoading";
 import Loading from "../../components/Loading/Loading";
 import theme from "../../theme";
+import { useCarBrands } from "../../hook/useSearch";
 
 interface CarBrand {
   codigo: string;
@@ -16,30 +17,8 @@ interface CarBrand {
 }
 
 const Home = () => {
-  const [carBrands, setCarBrands] = React.useState<CarBrand[]>([]);
-  const [searchTerm, setSearchTerm] = React.useState<string>("");
-  const { loading, setLoading } = useLoading();
-
-  const scrollY = useRef(new Animated.Value(0)).current; // Valor animado para rastrear o scroll
-
-  useEffect(() => {
-    const fetchCarBrands = async () => {
-      setLoading(true);
-      try {
-        const data = await getCars();
-        const sortedData = data.sort(
-          (a: CarBrand, b: CarBrand) => parseInt(a.codigo) - parseInt(b.codigo)
-        );
-        setCarBrands(sortedData);
-      } catch (error) {
-        console.error("Erro ao buscar marcas de carros:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCarBrands();
-  }, []);
+  const { carBrands, searchTerm, setSearchTerm, loading } = useCarBrands();
+  const scrollY = useRef(new Animated.Value(0)).current;
 
   const filteredCarBrands = carBrands.filter(
     (car) =>
