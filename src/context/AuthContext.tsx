@@ -7,12 +7,14 @@ import {
   storageAuthTokenRemove,
   storageAuthTokenSave,
 } from "../storage/storage-token";
+import { useUserContext } from "./UserContext";
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const { toggleUser } = useUserContext();
   const [initialRouteName, setInitialRouteName] =
     useState<InitialRouteNameType>("Onboarding");
 
@@ -20,7 +22,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       const response = await authSignIn({ user, password });
       if (response.data && response.data.user && response.data.user.token) {
-        await storageUserSave(response.data.user);
+        await toggleUser(response.data.user);
         await storageAuthTokenSave(response.data.user.token);
         setIsSignedIn(true);
         return true;
@@ -43,7 +45,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const signOut = () => {
     setInitialRouteName("Login");
-    storageUserRemove();
     storageAuthTokenRemove();
     setIsSignedIn(false);
   };

@@ -11,6 +11,7 @@ import {
 import AppNavigator from "./src/routes";
 import { AuthProvider } from "./src/context/AuthContext";
 import Loading from "./src/components/Loading/Loading";
+import { UserProvider } from "./src/context/UserContext";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -26,10 +27,12 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <AuthProvider>
-        <StatusBar style="light" backgroundColor={theme.colors.primary} />
-        <AppNavigator />
-      </AuthProvider>
+      <UserProvider>
+        <AuthProvider>
+          <StatusBar style="light" backgroundColor={theme.colors.primary} />
+          <AppNavigator />
+        </AuthProvider>
+      </UserProvider>
     </ThemeProvider>
   );
 }
