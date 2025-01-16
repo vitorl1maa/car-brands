@@ -18,8 +18,7 @@ interface FormData {
 
 const FormLogin = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const navigation = useNavigation<LoginScreenNavigationProp>();
-  const { isSignedIn, signIn, errorMessage } = useAuthContext();
+  const { signIn, errorMessage } = useAuthContext();
   const { loading, setLoading } = useLoading();
   const {
     control,
