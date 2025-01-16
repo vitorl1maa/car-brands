@@ -20,7 +20,7 @@ export default function Navbar() {
     <Container>
       <View>
         <WelcomeText>Seja bem vindo!</WelcomeText>
-        <TextName style={{ color: "#ffff" }}>{user?.name}</TextName>
+        <TextName>{user?.name}</TextName>
       </View>
 
       <ContainerLogout onPress={signOut}>

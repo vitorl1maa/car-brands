@@ -20,11 +20,13 @@ export const InputField = styled.TextInput`
   height: 50px;
   color: ${theme.colors.secondary};
   font-size: ${fontSize(1.3)};
+  margin-left: 25px;
  
 `;
 
 export const IconWrapper = styled.View`
   position: absolute;
-  top: 15px;
-  right: 10px;
+  top: 13px;
+  left: 8px;
+ 
 `;

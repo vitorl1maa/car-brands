@@ -9,3 +9,17 @@ export const Container = styled.View`
     padding: ${responsiveness(6)}px 20px;
 
 `
+
+export const ModelTitle = styled.Text`
+  color: ${theme.colors.secondary};
+  font-weight: 600;
+  font-size: 20px;
+
+`
+
+export const ContainerLoading = styled.View`
+  height: 500;
+  justify-content: center;
+  align-items: center;
+  
+`;

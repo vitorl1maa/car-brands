@@ -2,8 +2,9 @@ import { View, Animated, Easing } from "react-native";
 import React, { useEffect, useRef } from "react";
 import { LoaderCircle } from "lucide-react-native";
 import theme from "../../theme";
+import { LoadingProps } from "./types/styled";
 
-export default function Loading() {
+export default function Loading({ color }: LoadingProps) {
   const rotateValue = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -24,7 +25,7 @@ export default function Loading() {
 
   return (
     <Animated.View style={{ transform: [{ rotate }] }}>
-      <LoaderCircle color={theme.colors.primary} />
+      <LoaderCircle color={color} />
     </Animated.View>
   );
 }

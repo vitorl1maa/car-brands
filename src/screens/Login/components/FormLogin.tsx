@@ -85,7 +85,7 @@ const FormLogin = () => {
       </View>
 
       <Button
-        text={loading ? <Loading /> : "Entrar"}
+        text={loading ? <Loading color={theme.colors.primary} /> : "Entrar"}
         onPress={handleSubmit(handleLogin)}
         disabled={loading}
       />
