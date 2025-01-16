@@ -99,7 +99,7 @@ const Home = () => {
               { useNativeDriver: true }
             )}
             contentContainerStyle={{
-              paddingTop: 50,
+              paddingTop: 20,
               paddingBottom: 100,
             }}
           />
@@ -111,10 +111,8 @@ const Home = () => {
 
 const styles = StyleSheet.create({
   card: {
-    marginBottom: 5,
-    borderRadius: 8,
-    padding: 8,
-    shadowOffset: { width: 0, height: 2 },
+    padding: 6,
+    shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
   },

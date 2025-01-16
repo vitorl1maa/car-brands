@@ -5,7 +5,7 @@ import { responsiveness } from "../../utils/size-responsiveness";
 
 export const Container = styled.View`
   min-width: ${(props: CardInfoProps) => props.width || "100%"};
-  height:${responsiveness(5)}px ;
+  height:${responsiveness(6)}px ;
   border-width: 1px;
   border-color: ${(props: CardInfoProps) =>
     props.isFocused ? theme.colors.pistache : theme.colors.gray};
