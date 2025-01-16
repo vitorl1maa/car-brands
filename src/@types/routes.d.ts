@@ -1,8 +1,7 @@
-import { StackNavigationProp } from '@react-navigation/stack';
-
 export type RootStackParamList = {
-  Home: undefined;
+  Onboarding: undefined;
   Login: undefined;
+  Home: undefined;
 };
 
 type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;

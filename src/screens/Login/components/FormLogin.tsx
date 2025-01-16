@@ -6,11 +6,11 @@ import { Eye, EyeOff, User } from "lucide-react-native";
 import { View } from "react-native";
 import { Container, ErrorText } from "./styled";
 import { useNavigation } from "@react-navigation/native";
-import { LoginScreenNavigationProp } from "../../../@types/routes";
 import { Controller, useForm } from "react-hook-form";
 import { useAuthContext } from "../../../context/AuthContext";
 import Loading from "../../../components/Loading/Loading";
 import { useLoading } from "../../../hook/useLoading";
+import { LoginScreenNavigationProp } from "../../../@types/routes";
 interface FormData {
   user: string;
   password: string;
@@ -33,22 +33,13 @@ const FormLogin = () => {
       const { user, password } = data;
       const success = await signIn(user, password);
 
-      if (success) {
-        navigation.replace("Home");
-      } else {
-      }
+      if (success) return;
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    if (isSignedIn) {
-      navigation.replace("Home");
-    }
-  }, [isSignedIn]);
 
   return (
     <Container>

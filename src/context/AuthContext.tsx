@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { authSignIn } from "../api/auth/signIn";
 import { storageUserRemove, storageUserSave } from "../storage/storage-user";
-import { AuthContextProps } from "./types/AuthContext";
+import { AuthContextProps, InitialRouteNameType } from "./types/AuthContext";
 import { AxiosError } from "axios";
 import {
   storageAuthTokenRemove,
@@ -13,6 +13,8 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [initialRouteName, setInitialRouteName] =
+    useState<InitialRouteNameType>("Onboarding");
 
   const signIn = async (user: string, password: string): Promise<boolean> => {
     try {
@@ -40,13 +42,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const signOut = () => {
+    setInitialRouteName("Login");
     storageUserRemove();
     storageAuthTokenRemove();
     setIsSignedIn(false);
   };
 
   return (
-    <AuthContext.Provider value={{ signIn, signOut, isSignedIn, errorMessage }}>
+    <AuthContext.Provider
+      value={{
+        signIn,
+        signOut,
+        isSignedIn,
+        errorMessage,
+        initialRouteName,
+        setInitialRouteName,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

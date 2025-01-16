@@ -10,6 +10,7 @@ import {
 } from "@expo-google-fonts/open-sans";
 import AppNavigator from "./src/routes";
 import { AuthProvider } from "./src/context/AuthContext";
+import Loading from "./src/components/Loading/Loading";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -20,7 +21,7 @@ export default function App() {
   });
 
   if (!fontsLoaded) {
-    return null;
+    return <Loading />;
   }
 
   return (
