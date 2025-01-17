@@ -13,8 +13,9 @@ export const Container = styled.View`
   margin-top: 15px;
   background-color: ${theme.colors.gray};
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  padding: 0 20px;
   
 `;
 

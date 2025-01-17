@@ -3,13 +3,15 @@ import { Animated, View, StyleSheet, TouchableOpacity } from "react-native";
 import { Container, ContainerLoading, ModelTitle } from "./styled";
 import Navbar from "../Home/components/Navbar/Navbar";
 import Search from "../../components/Search/Search";
-import { Search as SearchIcon } from "lucide-react-native";
+import { ArrowLeft, Search as SearchIcon } from "lucide-react-native";
 import CardInfo from "../../components/CardInfo/CardInfo";
 import Loading from "../../components/Loading/Loading";
 import theme from "../../theme";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useLoading } from "../../hook/useLoading";
 import { getCarModels } from "../../api/getCar[id]/getCarId";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../../@types/routes";
 
 interface CarModel {
   codigo: string;
@@ -23,6 +25,17 @@ const CarModelScreen = () => {
   const scrollY = useRef(new Animated.Value(0)).current;
   const route = useRoute();
   const { brandCode } = route.params as { brandCode: string };
+
+  type CarModelScreenNavigationProp = StackNavigationProp<
+    RootStackParamList,
+    "CarModel"
+  >;
+
+  const navigation = useNavigation<CarModelScreenNavigationProp>();
+
+  const handleBackPress = () => {
+    navigation.navigate("Home");
+  };
 
   useEffect(() => {
     const fetchCarModels = async () => {
@@ -82,6 +95,9 @@ const CarModelScreen = () => {
 
   return (
     <Container>
+      <TouchableOpacity onPress={handleBackPress} style={{ marginBottom: 20 }}>
+        <ArrowLeft color={theme.colors.pistache} size={32} />
+      </TouchableOpacity>
       <Navbar />
       <Search
         icon={SearchIcon}
