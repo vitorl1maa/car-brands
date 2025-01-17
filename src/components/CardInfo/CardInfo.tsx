@@ -15,7 +15,7 @@ const CardInfo = ({ car, coding }: CardInfoProps) => {
         </Info>
 
         <Info>
-          <Title>Código do veículo:</Title>
+          <Title>Código da marca:</Title>
           <TextCard># {coding}</TextCard>
         </Info>
       </View>

@@ -6,8 +6,6 @@ import { useAuthContext } from "../context/AuthContext";
 import { PublicRoutes } from "./public.routes";
 import { PrivateRoutes } from "./private.routes";
 
-const Stack = createStackNavigator();
-
 export default function AppNavigator() {
   const { isSignedIn } = useAuthContext();
   return (

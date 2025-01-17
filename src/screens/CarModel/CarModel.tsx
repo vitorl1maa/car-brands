@@ -1,66 +1,60 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Animated, View, StyleSheet, TouchableOpacity } from "react-native";
 import { Container, ContainerLoading, ModelTitle } from "./styled";
-import Navbar from "./components/Navbar/Navbar";
+import Navbar from "../Home/components/Navbar/Navbar";
 import Search from "../../components/Search/Search";
 import { Search as SearchIcon } from "lucide-react-native";
 import CardInfo from "../../components/CardInfo/CardInfo";
-import { getCars } from "../../api/getCars/getCars";
 import Loading from "../../components/Loading/Loading";
 import theme from "../../theme";
-import { useNavigation } from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
 import { useLoading } from "../../hook/useLoading";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../@types/routes";
+import { getCarModels } from "../../api/getCar[id]/getCarId";
 
-interface CarBrand {
+interface CarModel {
   codigo: string;
   nome: string;
 }
 
-const Home = () => {
-  const [carBrands, setCarBrands] = useState<CarBrand[]>([]);
+const CarModelScreen = () => {
+  const [carModels, setCarModels] = useState<CarModel[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const { loading, setLoading } = useLoading();
   const scrollY = useRef(new Animated.Value(0)).current;
-
-  type HomeScreenNavigationProp = StackNavigationProp<
-    RootStackParamList,
-    "Home"
-  >;
-
-  const navigation = useNavigation<HomeScreenNavigationProp>();
+  const route = useRoute();
+  const { brandCode } = route.params as { brandCode: string };
 
   useEffect(() => {
-    const fetchCarBrands = async () => {
+    const fetchCarModels = async () => {
       setLoading(true);
       try {
-        const data = await getCars();
-        const sortedData = data.sort(
-          (a: CarBrand, b: CarBrand) => parseInt(a.codigo) - parseInt(b.codigo)
-        );
-        setCarBrands(sortedData);
+        const data = await getCarModels(brandCode);
+        if (data && data.modelos) {
+          const sortedData = data.modelos.sort(
+            (a: CarModel, b: CarModel) =>
+              parseInt(a.codigo) - parseInt(b.codigo)
+          );
+          setCarModels(sortedData);
+        } else {
+          console.error("Estrutura de dados inesperada:", data);
+        }
       } catch (error) {
-        console.error("Erro ao buscar marcas de carros:", error);
+        console.error("Erro ao buscar modelos de carros:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchCarBrands();
-  }, [setLoading]);
+    fetchCarModels();
+  }, [brandCode, setLoading]);
 
-  const filteredCarBrands = carBrands.filter(
+  const filteredCarModels = carModels.filter(
     (car) =>
       car.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      car.codigo.includes(searchTerm)
+      (car.codigo && car.codigo.toString().includes(searchTerm))
   );
 
-  const handlePress = (brandCode: string) => {
-    navigation.navigate("CarModel", { brandCode });
-  };
-
-  const renderItem = ({ item, index }: { item: CarBrand; index: number }) => {
+  const renderItem = ({ item, index }: { item: CarModel; index: number }) => {
     const inputRange = [-1, 0, index * 100, (index + 2) * 100];
     const scale = scrollY.interpolate({
       inputRange,
@@ -72,19 +66,17 @@ const Home = () => {
     });
 
     return (
-      <TouchableOpacity onPress={() => handlePress(item.codigo)}>
-        <Animated.View
-          style={[
-            styles.card,
-            {
-              transform: [{ scale }],
-              opacity,
-            },
-          ]}
-        >
-          <CardInfo car={item.nome} coding={item.codigo} />
-        </Animated.View>
-      </TouchableOpacity>
+      <Animated.View
+        style={[
+          styles.card,
+          {
+            transform: [{ scale }],
+            opacity,
+          },
+        ]}
+      >
+        <CardInfo car={item.nome} coding={item.codigo} />
+      </Animated.View>
     );
   };
 
@@ -98,15 +90,15 @@ const Home = () => {
       />
 
       <View style={{ marginTop: 40 }}>
-        <ModelTitle>Marcas</ModelTitle>
+        <ModelTitle>Modelos</ModelTitle>
         {loading ? (
           <ContainerLoading>
             <Loading color={theme.colors.pistache} />
           </ContainerLoading>
         ) : (
           <Animated.FlatList
-            data={filteredCarBrands}
-            keyExtractor={(item) => item.codigo}
+            data={filteredCarModels}
+            keyExtractor={(item) => item.codigo.toString()}
             renderItem={renderItem}
             onScroll={Animated.event(
               [{ nativeEvent: { contentOffset: { y: scrollY } } }],
@@ -132,4 +124,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default CarModelScreen;
