@@ -60,26 +60,6 @@ Para rodar na web:
 yarn web
 ```
 
-## Testes
-
-Para executar os testes, adicione o script de teste no 
-
-package.json
-
-:
-
-```json
-"scripts": {
-  "test": "jest"
-}
-```
-
-E então execute:
-
-```bash
-yarn test
-```
-
 ## Estrutura das Telas
 
 ### Home
