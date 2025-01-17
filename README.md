@@ -260,13 +260,3 @@ const styles = StyleSheet.create({
 
 export default CarModelScreen;
 ```
-
-## Contribuição
-
-Se você quiser contribuir para este projeto, por favor, siga as etapas abaixo:
-
-1. Faça um fork do repositório.
-2. Crie uma nova branch (`git checkout -b feature/nova-feature`).
-3. Faça suas alterações e commit (`git commit -am 'Adiciona nova feature'`).
-4. Envie para a branch (`git push origin feature/nova-feature`).
-5. Abra um Pull Request.
