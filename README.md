@@ -27,13 +27,6 @@ Este é um projeto React Native que exibe uma lista de marcas de carros e seus m
    yarn install
    ```
 
-3. Instale as dependências específicas do projeto:
-
-   ```bash
-   yarn add @react-navigation/native @react-navigation/stack axios styled-components
-   yarn add --dev jest @testing-library/react-native @testing-library/jest-native jest-expo ts-jest @types/jest ts-node
-   ```
-
 ## Executando o Projeto
 
 Para iniciar o projeto, execute:
