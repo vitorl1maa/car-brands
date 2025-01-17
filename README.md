@@ -270,11 +270,3 @@ Se você quiser contribuir para este projeto, por favor, siga as etapas abaixo:
 3. Faça suas alterações e commit (`git commit -am 'Adiciona nova feature'`).
 4. Envie para a branch (`git push origin feature/nova-feature`).
 5. Abra um Pull Request.
-
-## Licença
-
-Este projeto está licenciado sob a Licença MIT. Veja o arquivo LICENSE para mais detalhes.
-```
-
-Este é um exemplo básico de documentação para o seu projeto. Certifique-se de ajustar as informações conforme necessário para refletir com precisão os detalhes do seu projeto.
-Este é um exemplo básico de documentação para o seu projeto. Certifique-se de ajustar as informações conforme necessário para refletir com precisão os detalhes do seu projeto.
